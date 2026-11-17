@@ -209,7 +209,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <select id="fSort" aria-label="물고기 정렬"><option value="name">이름순</option><option value="diff">난이도 높은 순</option><option value="time">시간 이른 순</option></select>
         <select id="fLocSort" aria-label="장소 정렬" hidden><option value="basic">기본순</option><option value="name">이름순</option></select>
         <label class="chk"><input type="checkbox" id="fTrap">통발</label>
-        <label class="chk"><input type="checkbox" id="fLegend">전설</label>
+        <label class="chk"><input type="checkbox" id="fLegend">전설만 보기</label>
       </div>
     </div>
     <div class="sum" aria-live="polite"><b id="sumT"></b><span id="sumN"></span></div>
@@ -247,7 +247,7 @@ const MODNAME = {sve:'대확장', rsv:'릿지사이드'};
 const MODTAG = {v:'바닐라', sve:'대확장', rsv:'릿지사이드'};
 const coll = new Intl.Collator('ko');
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const st = {season:'spring', weather:'sunny', view:'fish', sort:'name', locSort:'basic', trap:false, legend:true, mods:{sve:true, rsv:true}};
+const st = {season:'spring', weather:'sunny', view:'fish', sort:'name', locSort:'basic', trap:false, legendOnly:false, mods:{sve:true, rsv:true}};
 try { Object.assign(st, JSON.parse(localStorage.getItem('fishState') || '{}')); } catch (e) {}
 const save = () => { try { localStorage.setItem('fishState', JSON.stringify(st)); } catch (e) {} };
 const on = src => src === 'v' || st.mods[src];
@@ -278,7 +278,7 @@ function current(){
   const out = [];
   for (const f of D.fish) {
     if (f.trap && !st.trap) continue;
-    if (!st.legend && isLegend(f)) continue;
+    if (st.legendOnly && !isLegend(f)) continue;
     let ps = placesNow(f);
     if (!ps.length) continue;
     if (q && !(f.ko + ' ' + f.en).toLowerCase().includes(q)) {
@@ -344,7 +344,7 @@ function render(){
   document.getElementById('fSort').hidden = st.view !== 'fish';
   document.getElementById('fLocSort').hidden = st.view !== 'loc';
   document.getElementById('fTrap').checked = st.trap;
-  document.getElementById('fLegend').checked = st.legend;
+  document.getElementById('fLegend').checked = st.legendOnly;
   const list = current();
   const t = document.getElementById('sumT');
   t.className = st.season; t.textContent = `${SEASON[st.season]} · ${WEATHER[st.weather]}`;
@@ -379,7 +379,7 @@ document.querySelectorAll('button.mod').forEach(b => b.addEventListener('click',
 document.getElementById('fSort').addEventListener('change', e => { st.sort = e.target.value; save(); render(); });
 document.getElementById('fLocSort').addEventListener('change', e => { st.locSort = e.target.value; save(); render(); });
 document.getElementById('fTrap').addEventListener('change', e => { st.trap = e.target.checked; save(); render(); });
-document.getElementById('fLegend').addEventListener('change', e => { st.legend = e.target.checked; save(); render(); });
+document.getElementById('fLegend').addEventListener('change', e => { st.legendOnly = e.target.checked; save(); render(); });
 document.getElementById('q').addEventListener('input', render);
 const toTop = document.getElementById('toTop');
 const scroller = document.getElementById('scroller');
