@@ -288,7 +288,7 @@ function bdayHTML(n){
 }
 const portrait = id => D.portraits[id] ? `data:image/png;base64,${D.portraits[id]}` : '';
 
-D.npcs.forEach(n => { n.searchFor = () => (n.ko + ' ' + n.en + ' ' + pick(n.love).map(giftName).join(' ') + ' ' + pick(n.like).map(giftName).join(' ')).toLowerCase(); });
+D.npcs.forEach(n => { n.searchFor = () => (n.ko + ' ' + n.en + ' ' + pick(n.love).map(giftName).join(' ') + (showLike ? ' ' + pick(n.like).map(giftName).join(' ') : '')).toLowerCase(); });  // 좋아하는 선물은 보기를 켰을 때만 검색
 
 // 상단 고정한 NPC
 const pins = new Set();
