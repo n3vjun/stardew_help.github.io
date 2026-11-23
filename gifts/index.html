@@ -131,8 +131,8 @@ tr{scroll-margin-top:12px}
 .legal a{color:var(--fg);text-underline-offset:2px}
 .legal b{color:var(--fg);font-weight:600}
 @media (max-width:820px){
-  .app{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
-  .app>nav{border-right:0;border-bottom:1px solid var(--line);padding-left:0}
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+  .app>nav{border-right:0;border-bottom:1px solid var(--line);padding-left:0;min-width:0}
   .nav-head{grid-template-columns:auto 1fr;align-items:center;padding:10px max(16px,env(safe-area-inset-left,0px)) 8px;padding-right:max(16px,env(safe-area-inset-right,0px))}
   .brand small{display:none}
   .nav-list{display:flex;overflow-x:auto;overflow-y:hidden;gap:2px;padding:6px 12px 8px}
@@ -195,7 +195,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <div id="tip" role="tooltip" hidden></div>
 <button id="toTop" class="off" type="button" aria-label="맨 위로" title="맨 위로" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-<header class="topbar"><div class="topbar-in"><a class="tb-brand" href="../"><i aria-hidden="true"></i>펠리컨 마을 도감</a><nav class="tb-nav" aria-label="도감 이동"><a href="../">홈</a><a href="../gifts/" aria-current="page">선물 도감</a><a href="../fish/">낚시 도감</a></nav></div></header>
+<header class="topbar"><div class="topbar-in"><a class="tb-brand" href="../"><i aria-hidden="true"></i>펠리컨 마을 도감</a><nav class="tb-nav" aria-label="도감 이동"><a href="../">홈</a><a href="../gifts/" aria-current="page">선물 도감</a><a href="../fish/">낚시 도감</a><a href="../museum/">박물관 체크</a><a href="../bundles/">꾸러미 체크</a><a href="../orders/">특별주문 체크</a></nav></div></header>
 <div class="app">
   <nav aria-label="NPC 목록">
     <div class="nav-head">
